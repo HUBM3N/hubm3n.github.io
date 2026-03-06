@@ -980,8 +980,18 @@ try {
   if (s.wins !== undefined) state.stats = s;
 } catch(e) {}
 
-function getDailyIndex() {
-  return Math.floor(Math.random() * HUDS.length);
+let hudQueue = [];
+
+function getNextHudIndex() {
+  if (hudQueue.length === 0) {
+    // Refill with all indices and shuffle
+    hudQueue = HUDS.map((_, i) => i);
+    for (let i = hudQueue.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [hudQueue[i], hudQueue[j]] = [hudQueue[j], hudQueue[i]];
+    }
+  }
+  return hudQueue.pop();
 }
 
 // ============================================================
@@ -1004,7 +1014,7 @@ const nextBtnInline    = document.getElementById('next-btn-inline');
 // INIT
 // ============================================================
 function init() {
-  state.hudIndex = getDailyIndex();
+  state.hudIndex = getNextHudIndex();
   state.attempts = 0;
   state.guesses  = [];
   state.gameOver = false;
@@ -1230,7 +1240,7 @@ nextBtnInline.addEventListener('click', advanceHud);
 
 function advanceHud() {
   resultModal.classList.remove('show');
-  state.hudIndex = Math.floor(Math.random() * HUDS.length);
+  state.hudIndex = getNextHudIndex();
   state.attempts = 0; state.guesses = []; state.gameOver = false; state.won = false;
   const hud = HUDS[state.hudIndex];
   hudImg.onerror = () => generateFallback(hud.name);
