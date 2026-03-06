@@ -284,6 +284,21 @@
   .ac-item mark { background: none; color: #fff; font-weight: 700; }
 
   /* NEXT HUD inline button */
+
+  .skip-btn {
+  width: 100%;
+  padding: 11px;
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  color: #444;
+font-family: 'Inter', sans-serif;  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.skip-btn:hover { border-color: #3a3a3a; color: #888; }
+.skip-btn:disabled { opacity: 0.2; cursor: not-allowed; }
   .next-btn-inline {
     display: none;
     width: 100%;
@@ -612,6 +627,7 @@
   </div>
 
   <!-- NEXT HUD inline -->
+  <button class="skip-btn" id="skip-btn">Skip</button>
   <button class="next-btn-inline" id="next-btn-inline">NEXT HUD ----></button>
 
 </main>
@@ -840,6 +856,20 @@ document.addEventListener('click', e => {
   }
 });
 
+const skipBtn = document.getElementById('skip-btn');
+
+skipBtn.addEventListener('click', () => {
+  if (state.gameOver) return;
+  state.gameOver = true;
+  state.won = false;
+  state.stats.played++;
+  state.stats.streak = 0;
+  saveStats();
+  updateStreak();
+  endGame();
+  showResult();
+});
+
 // ============================================================
 // SUBMIT
 // ============================================================
@@ -925,6 +955,7 @@ function endGame() {
   blurOverlay.style.transition = 'backdrop-filter 0.6s ease';
   blurOverlay.style.backdropFilter = 'blur(0px)';
   nextBtnInline.classList.add('visible');
+  skipBtn.disabled = true;
 }
 
 // ============================================================
@@ -969,6 +1000,7 @@ function advanceHud() {
   document.getElementById('hint-text').textContent = '';
   document.querySelector('.guesses-label').classList.remove('label-hint');
   document.getElementById('guesses-label-text').textContent = 'guesses:';
+  skipBtn.disabled = false;
 }
 
 // ============================================================
