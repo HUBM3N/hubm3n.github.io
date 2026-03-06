@@ -981,30 +981,7 @@ try {
 } catch(e) {}
 
 function getDailyIndex() {
-  const day = Math.floor((Date.now() - new Date('2024-01-01').getTime()) / 86400000);
-
-  function seededRand(seed) {
-    let s = seed >>> 0;
-    return function() {
-      s ^= s << 13;
-      s ^= s >>> 17;
-      s ^= s << 5;
-      s = s >>> 0;
-      return s / 0xffffffff;
-    };
-  }
-
-  // Use a different seed per full cycle so reshuffles feel different
-  const cycle = Math.floor(day / HUDS.length);
-  const rand = seededRand((day * 2246822519 + cycle * 3266489917) >>> 0);
-
-  const indices = HUDS.map((_, i) => i);
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
-
-  return indices[day % HUDS.length];
+  return Math.floor(Math.random() * HUDS.length);
 }
 
 // ============================================================
@@ -1253,7 +1230,7 @@ nextBtnInline.addEventListener('click', advanceHud);
 
 function advanceHud() {
   resultModal.classList.remove('show');
-  state.hudIndex = (state.hudIndex + 1) % HUDS.length;
+  state.hudIndex = Math.floor(Math.random() * HUDS.length);
   state.attempts = 0; state.guesses = []; state.gameOver = false; state.won = false;
   const hud = HUDS[state.hudIndex];
   hudImg.onerror = () => generateFallback(hud.name);
