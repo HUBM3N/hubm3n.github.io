@@ -282,4 +282,5 @@ const HUDS = [
   {name:"default",url:["https://f005.backblazeb2.com/file/screenshotshuddle/default.png","https://f005.backblazeb2.com/file/screenshotshuddle/default2.png"],link:"https://en.wikipedia.org/wiki/Lobotomy",author:"Valve"},
   {name:"rsEVILo",url:["https://f005.backblazeb2.com/file/screenshotshuddle/rsevilo.png"],link:"https://github.com/HUBM3N/hubm3n.github.io/blob/main/hudfiles/rsevilo.rar",author:"idk"},
   {name:"koymu hud",url:["https://f005.backblazeb2.com/file/screenshotshuddle/koymu.png","https://f005.backblazeb2.com/file/screenshotshuddle/koymu2.png"],link:"https://drive.google.com/drive/folders/1klbhT9iF6VlUW3X20PCrWWazfjIRKXGL?usp=drive_link",author:"koymu"},
+  {name:"hionhud",url:["https://f005.backblazeb2.com/file/screenshotshuddle/hion.png","https://f005.backblazeb2.com/file/screenshotshuddle/hion2.png"],link:"https://github.com/HUBM3N/hubm3n.github.io/blob/main/hudfiles/(Copy) zaynedit.rar",author:"hion"},
 ];
